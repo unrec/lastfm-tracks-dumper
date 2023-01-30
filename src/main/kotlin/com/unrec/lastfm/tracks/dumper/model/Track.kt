@@ -10,19 +10,19 @@ data class Track(
     @field:JsonProperty("track_id")
     val trackId: String?,
 
-    @field:JsonProperty("track_name")
+    @field:JsonProperty("track")
     val trackName: String,
 
     @field:JsonProperty("artist_id")
     val artistId: String?,
 
-    @field:JsonProperty("artist_name")
+    @field:JsonProperty("artist")
     val artistName: String,
 
     @field:JsonProperty("album_id")
     val albumId: String?,
 
-    @field:JsonProperty("album_name")
+    @field:JsonProperty("album")
     val albumName: String,
 
     @field:JsonProperty("url")

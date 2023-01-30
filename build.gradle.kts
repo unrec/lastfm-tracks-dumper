@@ -7,12 +7,13 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 object Versions {
 
-    const val KOTLIN = "1.6.21"
+    const val KOTLIN = "1.8.0"
+    const val COROUTINES = "1.6.4"
     const val JACKSON = "2.14.0"
 }
 
 plugins {
-    kotlin("jvm") version "1.6.21"
+    kotlin("jvm") version "1.8.0"
     id("maven-publish")
     application
 }
@@ -23,18 +24,42 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation(group = "io.kotest", name = "kotest-assertions-core-jvm", version = "5.5.1")
 
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", Versions.COROUTINES)
+    implementation("ru.gildor.coroutines:kotlin-coroutines-okhttp:1.0")
 
-    implementation(group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin", version = Versions.JACKSON)
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("me.tongfei","progressbar","0.9.4")
+
+    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", Versions.JACKSON)
     implementation("com.fasterxml.jackson.dataformat", "jackson-dataformat-csv", Versions.JACKSON)
     implementation("com.fasterxml.jackson.datatype", "jackson-datatype-jsr310", Versions.JACKSON)
 }
 
 application {
-    mainClass.set("unrec.lastfm.tracks.dumper.AppKt")
+    mainClass.set("com.unrec.lastfm.tracks.dumper.AppKt")
 }
 
-tasks.apply {
+tasks {
+
+    val fatJar = register<Jar>("fatJar") {
+        dependsOn.addAll(listOf("compileJava", "compileKotlin", "processResources"))
+
+        archiveClassifier.set("standalone")
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        manifest {
+            attributes(mapOf("Main-Class" to application.mainClass))
+        }
+
+        val sourcesMain = sourceSets.main.get()
+        val contents = configurations.runtimeClasspath.get()
+            .map { if (it.isDirectory) it else zipTree(it) } + sourcesMain.output
+        from(contents)
+    }
+
+    build {
+        dependsOn(fatJar)
+    }
+
     test {
         useJUnitPlatform()
     }
