@@ -32,6 +32,31 @@ data class Track(
     val utsDate: Long,
 
     @field:JsonProperty("date")
-    val textDate: String
+    val textDate: String,
 
-)
+    var page: Int = 0,
+
+    var pageUrl: String = ""
+
+) {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Track
+
+        if (trackName != other.trackName) return false
+        if (artistName != other.artistName) return false
+        if (utsDate - other.utsDate > 5) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = trackName.hashCode()
+        result = 31 * result + artistName.hashCode()
+        result = 31 * result + textDate.hashCode()
+        return result
+    }
+}

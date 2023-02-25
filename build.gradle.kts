@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-version = "0.0.1"
+version = "0.0.2"
 group = "com.unrec"
 description = "lastfm-tracks-dumper"
 java.sourceCompatibility = JavaVersion.VERSION_11
@@ -29,6 +29,8 @@ dependencies {
 
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
     implementation("me.tongfei","progressbar","0.9.4")
+
+    implementation("org.seleniumhq.selenium:selenium-java:4.8.1")
 
     implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", Versions.JACKSON)
     implementation("com.fasterxml.jackson.dataformat", "jackson-dataformat-csv", Versions.JACKSON)

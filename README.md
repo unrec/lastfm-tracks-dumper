@@ -1,21 +1,42 @@
 # lastfm-tracks-dumper
 
-This cmd application obtains listened (aka *scrobbled*) tracks for a specific [Last.fm](https://www.last.fm/home) user 
-and save it to .csv file.
+![lastfm_csv](docs/lastfm_header_new_400x92.png)
 
-### Usage 
+The application obtains listened (aka *scrobbled*) tracks for a specific [Last.fm](https://www.last.fm/home) user 
+and save it to a **.csv** file. The application allows to download all scrobbled tracks or duplicated as well.
 
-Run the .jar and pass two parameters as the arguments:
+### Usage
 
-1. Required Last.fm username
-2. Last.fm API token, see [here](https://www.last.fm/api#getting-started).
+Run the application **.jar** file and provide next parameters:
+- required username (`--user`)
+- API token, see [here](https://www.last.fm/api#getting-started) (`--token`)
+- download strategy (`--starategy`, optional):
+    * `default` - get all scrobbled tracks
+    * `only-duplicates` - get duplicated tracks without the 1st one (can be used for deduplication of the library)
+    * `without-duplicates` - get only duplicated tracks (each duplicated track of the scrobbling history will be shown once)
 
 ```shell
-
-java -jar lastfm-tracks-dumper-0.0.1-standalone.jar 'username' 'api_token'
+java -jar lastfm-tracks-dumper.jar --user %user% --token %token% --strategy default
 ```
 
-Currently only `date`, `artist`, `track` and `album` fields are saved to .csv. 
+### Duplicates
 
-Besides there is some [issue](
+Due to scrobbling issues duplicated tracks can appear in the library 2 or more times. The application determine 
+duplicates with two rules:
+1. Duplicated tracks go in sequential order.
+2. Difference in the scrobbled time is less than 5 sec.
+
+![duplicates](docs/duplicates_720x330.png)
+
+Depending on the strategy there will be different output result:
+* `only-duplicates` -  track **Human** will appear 2 times, track **Be Mine** 1 time.
+* `without-duplicates` - each duplicated track will appear just once.
+
+### Exported .csv data
+
+Currently only `date`, `artist`, `track` and `album` values are saved to .csv. 
+
+Besides there is an [issue](
 https://support.last.fm/t/invalid-mbids-in-responses-to-user-gettoptracks-and-user-getrecenttracks/2011) with *track/artist/album* ids and that's why this id data is not valuable right now.
+
+For `only-duplicates` strategy 2 more fields added: `page` and `pageLink` for easy navigation in the library.
