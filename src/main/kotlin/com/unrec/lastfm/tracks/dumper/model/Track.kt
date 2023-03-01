@@ -34,6 +34,8 @@ data class Track(
     @field:JsonProperty("date")
     val textDate: String,
 
+    var index: Int = 0,
+
     var page: Int = 0,
 
     var pageUrl: String = ""
