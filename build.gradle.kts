@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-version = "0.0.2"
+version = "0.0.3"
 group = "com.unrec"
 description = "lastfm-tracks-dumper"
 java.sourceCompatibility = JavaVersion.VERSION_11
@@ -22,13 +22,14 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation(group = "io.kotest", name = "kotest-assertions-core-jvm", version = "5.5.1")
+    testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.9.2")
+    testImplementation("io.kotest", "kotest-assertions-core-jvm", "5.5.1")
 
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", Versions.COROUTINES)
     implementation("ru.gildor.coroutines:kotlin-coroutines-okhttp:1.0")
 
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation("me.tongfei","progressbar","0.9.4")
+    implementation("com.squareup.okhttp3", "okhttp", "4.9.0")
+    implementation("me.tongfei", "progressbar", "0.9.4")
 
     implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", Versions.JACKSON)
     implementation("com.fasterxml.jackson.dataformat", "jackson-dataformat-csv", Versions.JACKSON)

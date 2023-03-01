@@ -23,8 +23,8 @@ java -jar lastfm-tracks-dumper.jar --user %user% --token %token% --strategy defa
 
 Due to scrobbling issues duplicated tracks can appear in the library 2 or more times. The application determine 
 duplicates with two rules:
-1. Duplicated tracks go in sequential order.
-2. Difference in the scrobbled time is less than 5 sec.
+1. Duplicated tracks go in **sequential order**.
+2. Difference in the scrobbled time is **less than 5 sec**.
 
 ![duplicates](docs/duplicates_720x330.png)
 
@@ -34,9 +34,12 @@ Depending on the strategy there will be different output result:
 
 ### Exported .csv data
 
-Currently only `date`, `artist`, `track` and `album` values are saved to .csv. 
+Generated .csv has tab as separator as some names can contain `;` symbol in it.
 
-Besides there is an [issue](
-https://support.last.fm/t/invalid-mbids-in-responses-to-user-gettoptracks-and-user-getrecenttracks/2011) with *track/artist/album* ids and that's why this id data is not valuable right now.
+Currently only `date`, `artist`, `track` and `album` values are saved to .csv.
 
-For `only-duplicates` strategy 2 more fields added: `page` and `pageLink` for easy navigation in the library.
+Additional fields `page`, `pageLink` and `index` were added for easy navigation in the library.
+
+ID's for **track/artist/album** are not saved due to this [Last.fm issue](
+https://support.last.fm/t/invalid-mbids-in-responses-to-user-gettoptracks-and-user-getrecenttracks/2011).
+
