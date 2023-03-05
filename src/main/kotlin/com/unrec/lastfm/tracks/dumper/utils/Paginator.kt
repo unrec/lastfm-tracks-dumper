@@ -9,28 +9,30 @@ class Paginator(totalScrobbles: Int) {
 
     val fetchPages: Int = countPages(totalScrobbles, fetchPageSize)
 
-    val remainder: Int = totalScrobbles % defaultPageSize
+    val fetchRemainder: Int = totalScrobbles % fetchPageSize
+
+    val defaultRemainder: Int = totalScrobbles % defaultPageSize
 
     private fun countPages(total: Int, pageSize: Int) = kotlin.math.ceil(total.toDouble() / pageSize).toInt()
 
     fun countNormalizedIndex(index: Int, page: Int): Int {
         return if (page == fetchPages) {
-            remainder - index
+            fetchRemainder - index
         } else {
             val reversedIndex = fetchPageSize - index
-            if (remainder == 0) {
+            if (fetchRemainder == 0) {
                 (fetchPages - page) * fetchPageSize + reversedIndex
             } else {
-                (fetchPages - page - 1) * fetchPageSize + remainder + reversedIndex
+                (fetchPages - page - 1) * fetchPageSize + fetchRemainder + reversedIndex
             }
         }
     }
 
     fun countNormalizedPage(index: Int): Int {
-        return if (index <= remainder) {
+        return if (index <= defaultRemainder) {
             defaultPages
         } else {
-            val offsetIndex = index - remainder - 1
+            val offsetIndex = index - defaultRemainder - 1
             defaultPages - (offsetIndex / defaultPageSize) - 1
         }
     }

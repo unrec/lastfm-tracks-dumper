@@ -50,7 +50,7 @@ data class Track(
 
         if (trackName != other.trackName) return false
         if (artistName != other.artistName) return false
-        if (utsDate - other.utsDate > 5) return false
+        if (utsDate - other.utsDate > 10) return false
 
         return true
     }

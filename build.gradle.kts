@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-version = "0.0.3"
+version = "0.0.4"
 group = "com.unrec"
 description = "lastfm-tracks-dumper"
 java.sourceCompatibility = JavaVersion.VERSION_11

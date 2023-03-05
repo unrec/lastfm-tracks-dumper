@@ -56,7 +56,7 @@ class PaginatorTest {
 
         @Test
         fun `count remainder`() {
-            paginator.remainder shouldBe 9
+            paginator.fetchRemainder shouldBe 9
         }
     }
 

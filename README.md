@@ -24,7 +24,7 @@ java -jar lastfm-tracks-dumper.jar --user %user% --token %token% --strategy defa
 Due to scrobbling issues duplicated tracks can appear in the library 2 or more times. The application determine 
 duplicates with two rules:
 1. Duplicated tracks go in **sequential order**.
-2. Difference in the scrobbled time is **less than 5 sec**.
+2. Difference in the scrobbled time is **less than 10 sec**.
 
 ![duplicates](docs/duplicates_720x330.png)
 
